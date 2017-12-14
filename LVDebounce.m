@@ -19,6 +19,10 @@ static NSMutableDictionary *timers = nil;
 }
 
 + (void)fireAfter:(NSTimeInterval)seconds target:(id)target selector:(SEL)aSelector userInfo:(id)userInfo {
+
+    if (!target || !aSelector)
+      return;
+
     @synchronized(self) {
         NSArray *eventKey = @[target, NSStringFromSelector(aSelector)];
         if ([timers objectForKey:eventKey]) {
